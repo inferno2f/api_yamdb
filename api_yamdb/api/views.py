@@ -70,13 +70,11 @@ class UserViewSet(viewsets.ModelViewSet):
             if user.is_superuser:
                 serializer = UserWithAdminAccessSerializer(
                     user, data=request.data, partial=True)
-                serializer.is_valid(raise_exception=True)
-                serializer.save()
             else:
                 serializer = UserSerializer(
                     user, data=request.data, partial=True)
-                serializer.is_valid(raise_exception=True)
-                serializer.save()
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
             return Response(serializer.data, status=status.HTTP_200_OK)
 
 
@@ -130,7 +128,6 @@ class ReviewViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         title_id = self.kwargs.get('title_id')
         title = get_object_or_404(Title, id=title_id)
-        serializer.is_valid(raise_exception=True)
         serializer.save(author=self.request.user, title=title)
 
 

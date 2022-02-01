@@ -21,7 +21,7 @@ ROLES = (
 class User(AbstractUser):
     bio = models.TextField('О пользователе', blank=True, null=True)
     role = models.CharField(
-        'Права доступа', choices=ROLES, default='user', max_length=10)
+        'Права доступа', choices=ROLES, default=USER, max_length=10)
     confirmation_code = models.CharField(
         'Код подтверждения', max_length=36, default=uuid.uuid4)
 
